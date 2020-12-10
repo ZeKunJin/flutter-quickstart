@@ -10,30 +10,26 @@ class HomePage extends StatefulWidget {
 class _HomePageSate extends State<HomePage> {
   bool loading = false;
   List<EgArrayEntity> egArray = [];
+  ScrollController _scrollController = ScrollController();
 
-  Future _fetch() {
-    setState(() {
-      loading = true;
-    });
-
+  Future<void> _fetch() async {
     var params = {'username': 'USERNAME'};
-    AuthRequest.getArray(params).then((res) {
-      setState(() {
-        EgEntity egEntity = EgEntity.fromJson(res);
-        egArray = egEntity.data;
-      });
-    });
-
-    return Future.delayed(Duration(seconds: 3), () {
-      setState(() {
-        loading = false;
-      });
+    var res = await AuthRequest.getArray(params);
+    setState(() {
+      EgEntity egEntity = EgEntity.fromJson(res);
+      egArray = egEntity.data;
     });
   }
 
   @override
   void initState() {
     _fetch();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        print('on reach bottom');
+      }
+    });
     super.initState();
   }
 
@@ -58,6 +54,7 @@ class _HomePageSate extends State<HomePage> {
               ),
             );
           },
+          controller: _scrollController,
         ),
       ),
     );
