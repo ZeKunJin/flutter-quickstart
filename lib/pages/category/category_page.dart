@@ -15,7 +15,14 @@ class _CategoryPageSate extends State<CategoryPage> {
         children: [
           Container(
             margin: EdgeInsets.all(8.0),
-            child: EgInput(),
+            child: EgInput(
+              change: (value) {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text(value),
+                  behavior: SnackBarBehavior.floating,
+                ));
+              },
+            ),
           ),
           Container(
             margin: EdgeInsets.all(8.0),
@@ -62,6 +69,9 @@ class EgButtonGroup extends StatelessWidget {
 
 class EgInput extends StatelessWidget {
   final TextEditingController inputContrtoller = TextEditingController();
+  final ValueChanged<String> change;
+
+  EgInput({this.change});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +88,7 @@ class EgInput extends StatelessWidget {
         ),
         RaisedButton(
           onPressed: () {
-            print(inputContrtoller.text);
+            change(inputContrtoller.text);
           },
           child: Text('get input value'),
         )
