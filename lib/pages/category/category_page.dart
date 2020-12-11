@@ -43,24 +43,15 @@ class EgButtonGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.only(right: 4.0),
-            child: RaisedButton(
-              onPressed: () => context.read<Counter>().decrement(),
-              child: Text('decrement'),
-            ),
-          ),
+        RaisedButton(
+          onPressed: () => context.read<Counter>().decrement(),
+          child: Text('decrement'),
         ),
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.only(left: 4.0),
-            child: RaisedButton(
-              onPressed: () => context.read<Counter>().increment(),
-              child: Text('increment'),
-            ),
-          ),
+        RaisedButton(
+          onPressed: () => context.read<Counter>().increment(),
+          child: Text('increment'),
         ),
       ],
     );
