@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_quickstart/provider/counter.dart';
 
-class CategoryPage extends StatefulWidget {
-  _CategoryPageSate createState() => _CategoryPageSate();
-}
-
-class _CategoryPageSate extends State<CategoryPage> {
+class CategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,11 +38,13 @@ class _CategoryPageSate extends State<CategoryPage> {
 class EgButtonGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var methods = context.watch<Counter>();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         RaisedButton(
-          onPressed: () => context.read<Counter>().decrement(),
+          onPressed: () => methods.decrement(),
           child: Text('decrement'),
         ),
         RaisedButton(
@@ -91,8 +89,10 @@ class EgInput extends StatelessWidget {
 class EgProviderCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var data = context.watch<Counter>();
+
     return Text(
-      '${context.watch<Counter>().count}',
+      '${data.count}',
       style: Theme.of(context).textTheme.headline4,
     );
   }
